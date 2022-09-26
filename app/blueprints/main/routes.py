@@ -24,9 +24,9 @@ def about():
 def contact():
     return render_template('contact.html')
 
-@app.route('/post', methods=['POST'])
+@app.route('/capture_pokemon', methods=['POST'])
 @login_required
-def create_post():
+def capture_pokemon():
     post_title = request.form['title']
     post_body = request.form['body']
     
