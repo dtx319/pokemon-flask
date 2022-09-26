@@ -1,0 +1,14 @@
+{% extends './partials/layout.html' %}
+
+{% block content %}
+<h1>
+    <div class="card">
+        <div class="card-header">
+            {{ post['title']}}
+        </div>
+        <div class="card-body">
+        {{ post['body']}}
+    </div>
+    </div>
+</h1>
+{% endblock content %}
