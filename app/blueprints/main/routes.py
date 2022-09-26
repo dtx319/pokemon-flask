@@ -1,6 +1,6 @@
 from . import bp as app
 from flask import render_template, request, redirect, url_for, flash
-from app.blueprints.main.models import User, Post
+from app.blueprints.main.models import User, Pokemon, Post
 from app import db
 from flask_login import current_user, login_required
 
@@ -10,9 +10,9 @@ from flask_login import current_user, login_required
 @app.route('/')
 @login_required
 def home():
-    posts = Post.query.all()
+    pokemon = Pokemon.query.all()
 
-    return render_template('home.html', user=current_user, posts=posts)
+    return render_template('home.html', user=current_user, pokemon=pokemon)
 
 @app.route('/about')
 @login_required
@@ -27,18 +27,15 @@ def contact():
 @app.route('/capture_pokemon', methods=['POST'])
 @login_required
 def capture_pokemon():
-    post_title = request.form['title']
-    post_body = request.form['body']
+    pokemon_name = request.form['name']
+    pokemon_description = request.form['description']
+    pokemon_type = request.form['type']
     
-    new_post = Post(title=post_title, body=post_body, user_id=current_user.id)
+    new_pokemon = Pokemon(name=pokemon_name, description=pokemon_description, type=pokemon_type, user_id=current_user.id)
 
-    db.session.add(new_post)
+    db.session.add(new_pokemon)
     db.session.commit()
 
-    flash('Post added successfully', 'success')
+    flash('Pokemon added successfully', 'success')
     return redirect(url_for('main.home'))
 
-@app.route('/post/<id>')
-def post(id):
-    single_post = Post.query.get(id)
-    return render_template('single-post.html', post=single_post)

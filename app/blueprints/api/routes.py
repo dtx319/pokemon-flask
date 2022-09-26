@@ -8,19 +8,18 @@ trainer_data = {
         'pokemon': [
             {
                 'id': 0,
-                'title': 'This is post 1',
-                'body': 'This is the text for the post'
+                'name': 'Jigglypuff',
+                'description': 'The best pop singer in the pokemon world!',
+                'type': 'Fairy',
+                'user_id': 1
             },
             {
-                'id': 1,
-                'title': 'This is post 2',
-                'body': 'This is the text for the post'
+                'id': 0,
+                'name': 'Gengar',
+                'description': 'Boo!',
+                'type': 'Ghost-Poison',
+                'user_id': 1
             },
-            {
-                'id': 2,
-                'title': 'This is post 3',
-                'body': 'This is the text for the post'
-            }
         ]
     }
 }
@@ -48,42 +47,31 @@ def user_by_id(id):
     return 'Trainer not found'
 
 
-# car_data = {
-#     0: {
-#         "name": "Maruti Swift Dzire VDI",
-#         "year": 2014,
-#         "selling_price": 450000
-#     },
-#     1: {
-#         "name": "Skoda Rapid 1.5 TDI Ambition",
-#         "year": 2014,
-#         "selling_price": 370000
-#     },
-#     2: {
-#         "name": "Honda City 2017-2020 EXi",
-#         "year": 2006,
-#         "selling_price": 158000
-#     }
-# }
+pokemon_data = [
+        {
+            'id': 3,
+            'name': 'Alakazam',
+            'description': 'The Great Houdini in Pokemon form.',
+            'type': 'Psychic',
+            'user_id': 1
+        },
+            {
+                'id': 4,
+                'name': 'Mew',
+                'description': 'The original pokemon.',
+                'type': 'Psychic',
+                'user_id': 1
+            },
+]
 
-# # Create a route that lists all of the cars in car_data
-# @app.route('/cars/')
-# def cars():
-#     return car_data
 
-# @app.route('/cars/year/<year>')
-# def car_by_year(year):
-#     car_result = {}
+@app.route('/pokemon/')
+def pokemon():
+    return pokemon_data
 
-#     for key, car in car_data.items():
-#         if car['year'] == int(year):
-#             car_result[key] = car
+@app.route('/pokemon/id/<id>')
+def pokemon_by_id(id):
+    if int(id) not in pokemon_data:
+        return 'Pokemon not found'
 
-#     return car_result
-
-# @app.route('/cars/id/<id>')
-# def car_by_id(id):
-#     if int(id) not in car_data:
-#         return 'Car not found'
-
-#     return car_data[int(id)]
+    return pokemon_data[int(id)]
